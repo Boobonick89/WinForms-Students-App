@@ -1,4 +1,4 @@
-using System.ComponentModel;
+ï»¿using System.ComponentModel;
 using System.Text.Json;
 
 namespace Form2__
@@ -19,9 +19,9 @@ namespace Form2__
             this.Load += Form1_Load;
             cmbSearch.Items.AddRange(new object[]
             {
-                "Èìÿ",
-                "Ãğóïïà",
-                "Âîçğàñò"
+                "Ğ˜Ğ¼Ñ",
+                "Ğ“Ñ€ÑƒĞ¿Ğ¿Ğ°",
+                "Ğ’Ğ¾Ğ·Ñ€Ğ°ÑÑ‚"
             });
 
             cmbSearch.SelectedIndex = 0;
@@ -53,18 +53,18 @@ namespace Form2__
         private void BtnSave_Click(object sender, EventArgs e)
         {
             SaveStudentsToFile();
-            MessageBox.Show("Ñïèñîê ñòóäåíòîâ ñîõğàíåí");
+            MessageBox.Show("Ğ¡Ğ¿Ğ¸ÑĞ¾Ğº ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ¾Ğ² ÑĞ¾Ñ…Ñ€Ğ°Ğ½ĞµĞ½");
         }
 
         private void BtnDel_Click(object sender, EventArgs e)
         {
             if (lstStudents.SelectedItem is not Student selected)
             {
-                MessageBox.Show("Âûáåğèòå ñòóäåíòà äëÿ óäàëåíèÿ");
+                MessageBox.Show("Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ° Ğ´Ğ»Ñ ÑƒĞ´Ğ°Ğ»ĞµĞ½Ğ¸Ñ");
                 return;
             }
 
-            var result = MessageBox.Show($"Óäàëèòü {selected.Name} {selected.Group} ?", "Óäàëåíèå", MessageBoxButtons.YesNo,
+            var result = MessageBox.Show($"Ğ£Ğ´Ğ°Ğ»Ğ¸Ñ‚ÑŒ {selected.Name} {selected.Group} ?", "Ğ£Ğ´Ğ°Ğ»ĞµĞ½Ğ¸Ğµ", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -103,7 +103,7 @@ namespace Form2__
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Îøèáêà ïğè çàãğóçêå" + ex.Message);
+                MessageBox.Show("ĞÑˆĞ¸Ğ±ĞºĞ° Ğ¿Ñ€Ğ¸ Ğ·Ğ°Ğ³Ñ€ÑƒĞ·ĞºĞµ" + ex.Message);
             }
         }
 
@@ -121,7 +121,7 @@ namespace Form2__
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Îøèáêà ïğè ñîõğàíåíèè" + ex.Message);
+                MessageBox.Show("ĞÑˆĞ¸Ğ±ĞºĞ° Ğ¿Ñ€Ğ¸ ÑĞ¾Ñ…Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸" + ex.Message);
             }
         }
 
@@ -145,13 +145,13 @@ namespace Form2__
 
             switch (mode)
             {
-                case "Èìÿ":
+                case "Ğ˜Ğ¼Ñ":
                     result = _students.Where(s => s.Name.Contains(value, StringComparison.OrdinalIgnoreCase)); break;
 
-                case "Ãğóïïà":
+                case "Ğ“Ñ€ÑƒĞ¿Ğ¿Ğ°":
                     result = _students.Where(s => s.Group.Contains(value, StringComparison.OrdinalIgnoreCase)); break;
 
-                case "Âîçğàñò":
+                case "Ğ’Ğ¾Ğ·Ñ€Ğ°ÑÑ‚":
                     if (int.TryParse(value, out int age))
                     {
                         result = _students.Where(s => s.Age == age);
