@@ -152,15 +152,16 @@ namespace Form2__
                     result = _students.Where(s => s.Group.Contains(value, StringComparison.OrdinalIgnoreCase)); break;
 
                 case "Возраст":
-                    if (int.TryParse(value, out int age))
+                    if(TryParseAgeRande(value,out int from,out int to))
                     {
-                        result = _students.Where(s => s.Age == age);
+                        result = _students.Where(s=>s.Age>=from&&s.Age<=to);
                     }
                     else
                     {
                         result = Enumerable.Empty<Student>();
                     }
                     break;
+                   
             }
 
             _bs.DataSource = result.ToList();
@@ -171,6 +172,54 @@ namespace Form2__
             txtSearch.Clear();
             cmbSearch.SelectedIndex = 0;
             _bs.DataSource = _students;
+        }
+
+        private bool TryParseAgeRande(string input,out int from,out int to)
+        {
+            from = int.MinValue;
+            to = int.MaxValue;
+
+            input = input.Replace(" ", "");
+
+            //Обычное число
+
+            if(int.TryParse(input,out int exact))
+            {
+                from = exact;
+                to = exact;
+                return true;
+            }
+            // диапазон
+
+            var parts = input.Split('-', StringSplitOptions.None);
+
+            if(parts.Length !=2)
+            {
+                return false;
+            }
+
+            //Левая граница
+            if(!string.IsNullOrWhiteSpace(parts[0]))
+            {
+                if(!int.TryParse(parts[0], out from))
+                    return false;
+            }
+
+            //правая граница
+            if(!string.IsNullOrWhiteSpace (parts[1]))
+            {
+                if(!int.TryParse (parts[1], out to))
+                    return false;
+            }
+
+            //Если перепутали местами
+            if(from>to)
+            {
+                (from,to) = (to, from);
+            }
+
+            return true;
+
         }
     }
 }
